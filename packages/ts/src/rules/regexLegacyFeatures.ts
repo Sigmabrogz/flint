@@ -8,7 +8,7 @@ import ts from "typescript";
 import { ruleCreator } from "./ruleCreator.ts";
 import { isBuiltinSymbolLike } from "./utils/isBuiltinSymbolLike.ts";
 
-const LEGACY_STATIC_PROPERTIES = new Set([
+const legacyStaticProperties = new Set([
 	"$1",
 	"$2",
 	"$3",
@@ -30,14 +30,14 @@ const LEGACY_STATIC_PROPERTIES = new Set([
 	"rightContext",
 ]);
 
-const LEGACY_PROTOTYPE_METHODS = new Set(["compile"]);
+const legacyPrototypeMethods = new Set(["compile"]);
 
 export default ruleCreator.createRule(typescriptLanguage, {
 	about: {
 		description:
 			"Reports usage of legacy RegExp static properties and prototype methods.",
 		id: "regexLegacyFeatures",
-		presets: ["logical"],
+		presets: ["untyped"],
 	},
 	messages: {
 		forbiddenPrototypeMethod: {
@@ -73,12 +73,12 @@ export default ruleCreator.createRule(typescriptLanguage, {
 						return;
 					}
 
+					// TODO: Use a util like getStaticValue
+					// https://github.com/flint-fyi/flint/issues/1298
 					const propertyName = node.argumentExpression.text;
-					if (!LEGACY_STATIC_PROPERTIES.has(propertyName)) {
-						return;
-					}
 
 					if (
+						!legacyStaticProperties.has(propertyName) ||
 						!isGlobalDeclarationOfName(node.expression, "RegExp", typeChecker)
 					) {
 						return;
@@ -98,34 +98,31 @@ export default ruleCreator.createRule(typescriptLanguage, {
 						return;
 					}
 
+					// TODO: Use a util like getStaticValue
+					// https://github.com/flint-fyi/flint/issues/1298
 					const propertyName = node.name.text;
 
 					if (ts.isIdentifier(node.expression)) {
 						if (node.expression.text === "RegExp") {
-							if (!LEGACY_STATIC_PROPERTIES.has(propertyName)) {
-								return;
-							}
-
 							if (
-								!isGlobalDeclarationOfName(
+								legacyStaticProperties.has(propertyName) &&
+								isGlobalDeclarationOfName(
 									node.expression,
 									"RegExp",
 									typeChecker,
 								)
 							) {
-								return;
+								context.report({
+									data: { name: propertyName },
+									message: "forbiddenStaticProperty",
+									range: getTSNodeRange(node, sourceFile),
+								});
 							}
-
-							context.report({
-								data: { name: propertyName },
-								message: "forbiddenStaticProperty",
-								range: getTSNodeRange(node, sourceFile),
-							});
 							return;
 						}
 					}
 
-					if (!LEGACY_PROTOTYPE_METHODS.has(propertyName)) {
+					if (!legacyPrototypeMethods.has(propertyName)) {
 						return;
 					}
 
