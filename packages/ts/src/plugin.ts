@@ -198,6 +198,7 @@ import regexLetterCasing from "./rules/regexLetterCasing.ts";
 import regexLookaroundQuantifierOptimizations from "./rules/regexLookaroundQuantifierOptimizations.ts";
 import regexMatchNotation from "./rules/regexMatchNotation.ts";
 import regexMisleadingCapturingGroups from "./rules/regexMisleadingCapturingGroups.ts";
+import regexMisleadingQuantifiers from "./rules/regexMisleadingQuantifiers.ts";
 import regexMisleadingUnicodeCharacters from "./rules/regexMisleadingUnicodeCharacters.ts";
 import regexNamedBackreferences from "./rules/regexNamedBackreferences.ts";
 import regexNamedReplacements from "./rules/regexNamedReplacements.ts";
@@ -208,6 +209,7 @@ import regexResultArrayGroups from "./rules/regexResultArrayGroups.ts";
 import regexSetOperationOptimizations from "./rules/regexSetOperationOptimizations.ts";
 import regexStarQuantifiers from "./rules/regexStarQuantifiers.ts";
 import regexSuperLinearBacktracking from "./rules/regexSuperLinearBacktracking.ts";
+import regexSuperLinearMoves from "./rules/regexSuperLinearMoves.ts";
 import regexTestMethods from "./rules/regexTestMethods.ts";
 import regexUnicodeCodepointEscapes from "./rules/regexUnicodeCodepointEscapes.ts";
 import returnAssignments from "./rules/returnAssignments.ts";
@@ -434,6 +436,7 @@ export const ts = createPlugin({
 		regexLookaroundQuantifierOptimizations,
 		regexMatchNotation,
 		regexMisleadingCapturingGroups,
+		regexMisleadingQuantifiers,
 		regexMisleadingUnicodeCharacters,
 		regexNamedBackreferences,
 		regexNamedReplacements,
@@ -444,6 +447,7 @@ export const ts = createPlugin({
 		regexSetOperationOptimizations,
 		regexStarQuantifiers,
 		regexSuperLinearBacktracking,
+		regexSuperLinearMoves,
 		regexTestMethods,
 		regexUnicodeCodepointEscapes,
 		returnAssignments,
