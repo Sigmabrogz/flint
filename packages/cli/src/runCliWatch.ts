@@ -76,6 +76,7 @@ export async function runCliWatch(
 
 		log("Watching cwd:", cwd);
 		const watcher = host.watchDirectorySync(cwd, rerun, {
+			ignoredPaths: ["/node_modules/.cache", "/.git", "/.jj"],
 			recursive: true,
 		});
 	});

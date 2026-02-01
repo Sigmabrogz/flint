@@ -9,8 +9,6 @@ import type {
 import { isFileSystemCaseSensitive } from "./isFileSystemCaseSensitive.ts";
 import { normalizePath } from "./normalizePath.ts";
 
-const ignoredPaths = ["/node_modules", "/.git", "/.jj"];
-
 export function createDiskBackedLinterHost(cwd: string): LinterHost {
 	const caseSensitiveFS = isFileSystemCaseSensitive();
 	cwd = normalizePath(cwd, caseSensitiveFS);
@@ -269,7 +267,7 @@ export function createDiskBackedLinterHost(cwd: string): LinterHost {
 						if (relative.startsWith(directoryPathAbsolute + "/")) {
 							relative = relative.slice(directoryPathAbsolute.length);
 						}
-						for (const ignored of ignoredPaths) {
+						for (const ignored of options.ignoredPaths) {
 							if (
 								relative.endsWith(ignored) ||
 								relative.includes(ignored + "/")
@@ -288,7 +286,7 @@ export function createDiskBackedLinterHost(cwd: string): LinterHost {
 			return createWatcher(
 				filePathAbsolute,
 				false,
-				options?.pollingInterval ?? 2_000,
+				options.pollingInterval ?? 2_000,
 				(normalizedChangedFilePath, event) => {
 					if (normalizedChangedFilePath === filePathAbsolute) {
 						callback(event);
