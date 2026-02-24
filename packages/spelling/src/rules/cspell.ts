@@ -1,8 +1,7 @@
 import type { Suggestion } from "@flint.fyi/core";
 import { textLanguage } from "@flint.fyi/text-language";
 import { parseJsonSafe } from "@flint.fyi/utils";
-import type { DocumentValidator } from "cspell-lib";
-import { suggestionsForWord } from "cspell-lib";
+import { type DocumentValidator, suggestionsForWord } from "cspell-lib";
 
 import { createDocumentValidator } from "./createDocumentValidator.ts";
 import { ruleCreator } from "./ruleCreator.ts";

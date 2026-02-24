@@ -26,6 +26,9 @@ export default defineConfig({
 				node.presets.logicalStrict,
 				node.presets.stylisticStrict,
 				performance.presets.logical,
+				performance.rules({
+					loopFunctions: false, // TODO: Add baselines
+				}),
 				ts.presets.logicalStrict,
 				ts.presets.stylisticStrict,
 				ts.rules({
