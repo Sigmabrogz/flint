@@ -3,4 +3,4 @@
 "@flint.fyi/vue": minor
 ---
 
-feat: introduce Vue language
+Introduce Vue language.
