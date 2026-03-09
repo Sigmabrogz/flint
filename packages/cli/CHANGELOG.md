@@ -1,5 +1,11 @@
 # @flint/cli
 
+## 0.18.1
+
+### Patch Changes
+
+- 8ae55cf: Display summary statistics after linting.
+
 ## 0.18.0
 
 ### Minor Changes
